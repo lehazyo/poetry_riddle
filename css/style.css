@@ -1,0 +1,206 @@
+BODY {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+INPUT {
+  outline: none;
+}
+
+.main_wraper {
+  max-width: 600px;
+  padding: 20px 0 20px 0;
+  margin: auto;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+.left_panel {
+}
+.lanugage_panel {
+  display: none;
+}
+[data-language="rus"] .lanugage_panel--rus {
+  display: block;
+}
+[data-language="old"] .lanugage_panel--old {
+  display: block;
+}
+.header_line1,
+.header_line2 {
+  font-size: 20px;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+.header_line1 {
+  margin-bottom: 12px;
+}
+.header_line2 {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.header_language__switcher_wrapper {
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+.header_language__switcher {
+  color: #33c;
+  cursor: pointer;
+  border-bottom: 1px dotted #33c;
+  user-select: none;
+}
+.conditions__text {
+}
+.conditions__text p {
+  font-size: 16px;
+  line-height: 20px;
+}
+.conditions__list {
+  column-count: 2;
+}
+.game__wrapper {
+  font-size: 0;
+  vertical-align: top;
+}
+.game__border {
+  width: 417px;
+  padding: 20px;
+  margin: auto auto 20px auto;
+  border: 2px solid #999;
+  border-radius: 30px;
+}
+.letter__wrapper {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  font-size: 0;
+  margin: 0 0 3px 3px;
+}
+.letter__wrapper--focused {
+  background: rgba(0,0,0,.1);
+}
+.letter__wrapper--filled .letter__icon {
+  display: none;
+}
+.letter__wrapper--focused .letter__icon {
+  opacity: .3;
+}
+.letter__wrapper:first-child {
+  margin-left: 0;
+}
+.letter__input {
+  position: relative;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: none;
+  font-size: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.letter__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.letter__line {
+  
+}
+.letter__line_11 {
+  
+}
+
+.letter__wrapper[data-id="1"] .letter__icon {
+  background-image: url(../img/letter1.svg);
+}
+.letter__wrapper[data-id="2"] .letter__icon {
+  background-image: url(../img/letter2.svg);
+}
+.letter__wrapper[data-id="3"] .letter__icon {
+  background-image: url(../img/letter3.svg);
+}
+.letter__wrapper[data-id="4"] .letter__icon {
+  background-image: url(../img/letter4.svg);
+}
+.letter__wrapper[data-id="5"] .letter__icon {
+  background-image: url(../img/letter5.svg);
+}
+.letter__wrapper[data-id="6"] .letter__icon {
+  background-image: url(../img/letter6.svg);
+}
+.letter__wrapper[data-id="7"] .letter__icon {
+  background-image: url(../img/letter7.svg);
+}
+.letter__wrapper[data-id="8"] .letter__icon {
+  background-image: url(../img/letter8.svg);
+}
+.letter__wrapper[data-id="9"] .letter__icon {
+  background-image: url(../img/letter9.svg);
+}
+.letter__wrapper[data-id="10"] .letter__icon {
+  background-image: url(../img/letter10.svg);
+}
+.letter__wrapper[data-id="11"] .letter__icon {
+  background-image: url(../img/letter11.svg);
+}
+.letter__wrapper[data-id="12"] .letter__icon {
+  background-image: url(../img/letter12.svg);
+}
+.letter__wrapper[data-id="13"] .letter__icon {
+  background-image: url(../img/letter13.svg);
+}
+.letter__wrapper[data-id="14"] .letter__icon {
+  background-image: url(../img/letter14.svg);
+}
+.letter__wrapper[data-id="15"] .letter__icon {
+  background-image: url(../img/letter15.svg);
+}
+.letter__wrapper[data-id="16"] .letter__icon {
+  background-image: url(../img/letter16.svg);
+}
+.letter__wrapper[data-id="17"] .letter__icon {
+  background-image: url(../img/letter17.svg);
+}
+.letter__wrapper[data-id="18"] .letter__icon {
+  background-image: url(../img/letter18.svg);
+}
+.letter__wrapper[data-id="19"] .letter__icon {
+  background-image: url(../img/letter19.svg);
+}
+.letter__wrapper[data-id="20"] .letter__icon {
+  background-image: url(../img/letter20.svg);
+}
+.letter__wrapper[data-id="21"] .letter__icon {
+  background-image: url(../img/letter21.svg);
+}
+.letter__wrapper[data-id="22"] .letter__icon {
+  background-image: url(../img/letter22.svg);
+}
+
+
+@media screen and (max-width: 640px) {
+  .conditions__text {
+    padding: 0 20px 0 20px;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  .letter__wrapper {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+  }
+  .game__border {
+    padding: 10px;
+    width: 270px;
+  }
+}
