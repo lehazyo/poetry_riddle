@@ -9,6 +9,10 @@ class Letter {
     this.id = this.getLetterId();
   }
 
+  /**
+   * Handles letter input
+   * @return {undefined}
+   */
   onInput(e) {
     var new_value = this.input.value;
     var clear_letter = false;
@@ -33,6 +37,10 @@ class Letter {
     }
   }
 
+  /**
+   * Sets or removes focused state for letter
+   * @return {undefined}
+   */
   setFocusedState(state) {
     var related_letters = this.getRelatedLetters();
     for(var i=0;i<related_letters.length;i++) {
@@ -41,6 +49,10 @@ class Letter {
     }
   }
 
+  /**
+   * Gets letter id
+   * @return {undefined}
+   */
   getLetterId() {
     if(typeof this.id === "undefined") {
       this.id = this.element.getAttribute("data-id");
@@ -48,10 +60,18 @@ class Letter {
     return this.id;
   }
 
+  /**
+   * Gets array of letters with same id
+   * @return {undefined}
+   */
   getRelatedLetters() {
     return this.game.getLettersById(this.id);
   }
 
+  /**
+   * Converts foreign letters and symbols into cyrillic letters
+   * @return {undefined}
+   */
   convertLetter(key) {
     var lower_key = key.toLowerCase();
     if(!lower_key.match(/[a-zа-яё\[\]\;\'\,\.]/i)) {

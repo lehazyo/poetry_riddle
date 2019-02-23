@@ -1,8 +1,12 @@
+/**
+ * Game object
+ */
 class Riddle {
   constructor() {
     this.letters = this.makeLetters();
 
     this.initializeLanguageSwitchers();
+    this.initializeHowToSwitch();
   }
 
   /**
@@ -23,6 +27,11 @@ class Riddle {
     return letters_array;
   }
 
+
+  /**
+   * Returns letters objects that have needed id
+   * @return {array}
+   */
   getLettersById(id) {
     var letters = [];
     for(var i=0;i<this.letters.length;i++) {
@@ -34,6 +43,10 @@ class Riddle {
     return letters;
   }
 
+  /**
+   * Adds event to switch language
+   * @return {undefined}
+   */
   initializeLanguageSwitchers() {
     this.language_switchers = document.querySelectorAll(".header_language__switcher");
     for(var i=0;i<this.language_switchers.length;i++) {
@@ -43,5 +56,16 @@ class Riddle {
         document.querySelector(".main_wraper").setAttribute("data-language", lang_id);
       });
     }
+  }
+
+  /**
+   * Adds event to switch visibility of 'How to play' block
+   * @return {undefined}
+   */
+  initializeHowToSwitch() {
+    this.how_to_switch = document.querySelector(".how_to__switch");
+    this.how_to_switch.addEventListener("click", function() {
+      document.querySelector(".how_to__wrapper").classList.toggle("how_to__wrapper--open");
+    });
   }
 }

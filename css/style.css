@@ -42,13 +42,33 @@ INPUT {
 }
 .header_language__switcher_wrapper {
   text-align: center;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 }
 .header_language__switcher {
   color: #33c;
   cursor: pointer;
   border-bottom: 1px dotted #33c;
   user-select: none;
+}
+.how_to__wrapper {
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+.how_to__switch {
+  color: #33c;
+  cursor: pointer;
+  border-bottom: 1px dotted #33c;
+  user-select: none;
+}
+.how_to__text {
+  display: none;
+  text-align: left;
+  padding: 10px;
+  margin-top: 10px;
+  background: #ccc;
+}
+.how_to__wrapper--open .how_to__text {
+  display: block;
 }
 .conditions__text {
 }
@@ -60,6 +80,7 @@ INPUT {
   column-count: 2;
 }
 .game__wrapper {
+  margin-top: 20px;
   font-size: 0;
   vertical-align: top;
 }
