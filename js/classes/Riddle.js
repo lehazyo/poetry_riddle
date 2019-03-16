@@ -115,6 +115,14 @@ class Riddle {
 
     this.sortLettersByCoordinates();
 
+    var title_element = document.querySelector("title");
+    var titles_by_langs = {
+      "rus": "Задача и ребус НА ПРЕМИИ",
+      "old": "Задача и ребусъ НА ПРЕМIИ"
+    };
+
+    title_element.textContent = titles_by_langs[lang_code];
+
     if(typeof localStorage !== "undefined") {
       localStorage.poetry_riddle__current_language = lang_code;
     }
