@@ -96,12 +96,18 @@ class Letter {
     if(trigger_type !== "fromKeyDown") {
       this.setPreviousInputValue(converted_letter);
     }
+
+    if(typeof localStorage !== "undefined") {
+      localStorage["poetry_riddle__upper__" + this.id] = converted_letter;
+    }
+
+    this.game.checkVictory();
   }
 
   onKeyDown(e) {
     var key = e.key;
 
-    var clearing_key = (key == 8 || key == 46);
+    var clearing_key = (e.keyCode == 8 || e.keyCode == 46);
 
     if(e.keyCode >= 37 && e.keyCode <= 40) {
       this.game.navigateWithCursors(this, e.keyCode);
@@ -184,12 +190,12 @@ class Letter {
    */
   convertLetter(key) {
     var lower_key = key.toLowerCase();
-    if(!lower_key.match(/[a-zа-яё\[\]\;\'\,\.]/i)) {
+    if(!lower_key.match(/[a-zа-яёѣ\\\[\]\;\'\,\.]/i)) {
       return false;
     }
-    var russian_letters = "йцукенгшщзхъфывапролджэячсмитьбю";
+
     // if russian letter is found then let's not search for english conversion
-    if(russian_letters.indexOf(lower_key) > -1) {
+    if(Letter.russian_letters.indexOf(lower_key) > -1) {
       return lower_key;
     }
 
@@ -224,6 +230,7 @@ class Letter {
   }
 }
 
+Letter.russian_letters = "йцукенгшщзхъфывапролджэячсмитьбюѣ";
 
 Letter.letter_types_by_ids = {
   "1": "c",
@@ -281,6 +288,7 @@ Letter.letter_types_by_letters = {
   "ъ": "v",
   "ы": "v",
   "ь": "v",
+  "ѣ": "v",
   "э": "v",
   "ю": "v",
   "я": "v",
@@ -318,7 +326,9 @@ Letter.english_to_russian = {
   "n": "т",
   "m": "ь",
   ",": "б",
-  ".": "ю"
+  ".": "ю",
+  "/": "ѣ",
+  "\\": "ѣ"
 };
 
 Letter.getSlotType = function(id) {

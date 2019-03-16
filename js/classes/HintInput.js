@@ -16,8 +16,14 @@ class HintInput {
       var russian_letter = Letter.english_to_russian[english_letter];
       clean_value = clean_value.replace(english_letter, russian_letter, "gi");
     }
-    clean_value = clean_value.replace(/[^а-яё]/gi, "");
+    clean_value = clean_value.replace(/[^а-яёѣ]/gi, "");
     this.input.value = clean_value;
     this.game.refreshFoundLetters();
+
+    if(typeof localStorage !== "undefined") {
+      localStorage["poetry_riddle__lower__" + this.id] = clean_value;
+    }
+
+    this.game.checkVictory();
   }
 }

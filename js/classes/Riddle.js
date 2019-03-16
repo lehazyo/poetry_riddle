@@ -23,18 +23,11 @@ class Riddle {
     this.letters_by_coordinates = [];
 
     this.initializeLanguageSwitchers();
-    this.setLanguage("old");
 
     this.focused_x = null;
     this.focused_y = null;
 
-    this.something_changed = false;
-
-    window.onbeforeunload = function() {
-      if(this.something_changed) {
-        return false;
-      }
-    }.bind(this);
+    this.readLocalStorage();
   }
 
   /**
@@ -121,6 +114,10 @@ class Riddle {
     this.refreshUsedLetters();
 
     this.sortLettersByCoordinates();
+
+    if(typeof localStorage !== "undefined") {
+      localStorage.poetry_riddle__current_language = lang_code;
+    }
   }
 
   /**
@@ -129,8 +126,8 @@ class Riddle {
    */
   getCharsPerLine() {
     var chars_per_line_by_language = {
-      "old": 12,
-      "rus": 11
+      "old": 10,
+      "rus": 10
     };
     return chars_per_line_by_language[this.current_language];
   }
@@ -434,5 +431,261 @@ class Riddle {
         return visible_letters[i];
       }
     }
+  }
+
+  /**
+   * Gets the next letter element after
+   */
+  getPreviousLetter(letter) {
+    var current_letter_found = false;
+    var previous_letter = null;
+    var visible_letters = this.getVisibleLetters();
+    for(var i=0;visible_letters.length;i++) {
+      if(visible_letters[i] === letter) {
+        current_letter_found = true;
+        continue;
+      }
+      if(current_letter_found) {
+        return previous_letter;
+      }
+      previous_letter = visible_letters[i];
+    }
+  }
+
+
+  /**
+   * Checks the right answers and says about victory
+   * @return {undefined}
+   */
+  checkVictory() {
+    if(this.checkRightAnswers()) {
+      this.sayAboutVictory();
+    }
+  }
+
+
+  /**
+   * Checks the right answers
+   * @return {boolean}
+   */
+  checkRightAnswers() {
+    // привет, мой любознательный друг! 
+    // Да, тут содержатся правильные ответы на загадку и ребус
+    var right_answers = {
+      "upper": {
+        "old": "пов[еѣ]рьстрадань[еѣ]нужнонамън[еѣ]испытавъ[еѣ]гон[еѣ]льзяпонятьисчастья",
+        "rus": "поверьстраданьенужнонамнеиспытавегонельзяпонятьисчастья"
+      },
+      "lower": {
+        1: "в[еѣ]совая",
+        2: "гать",
+        3: "до",
+        4: "жан[еѣ]",
+        5: "липа",
+        6: "осень",
+        7: "папирус(ъ)?",
+        8: "рысь",
+        9: "степь",
+        10: "узел(ъ)?",
+        11: "ярило",
+        12: "ячмень"
+      }
+    }
+
+    var upper_is_right = false;
+    var lower_is_right = true; // will become false below
+
+    var upper_letters = this.getVisibleLetters();
+    var upper_letters_string = "";
+    for(var i=0;i<upper_letters.length;i++) {
+      var u_letter = upper_letters[i];
+      var value = u_letter.input.value;
+      value = value.toLowerCase();
+      upper_letters_string += value;
+    }
+
+    var upper_regex = new RegExp("^" + right_answers.upper[this.current_language] + "$");
+    if(upper_letters_string.match(upper_regex)) {
+      upper_is_right = true;
+    }
+
+    var hint_inputs = this.hint_inputs;
+    for(var i=0;i<hint_inputs.length;i++) {
+      var hint_input = hint_inputs[i];
+      var value = hint_input.input.value;
+      value = value.toLowerCase();
+      var hint_regex = new RegExp("^" + right_answers.lower[hint_input.id] + "$");
+      if(!value.match(hint_regex)) {
+        lower_is_right = false;
+        break;
+      }
+    }
+
+    return (upper_is_right && lower_is_right);
+  }
+
+
+  /**
+   * Alerts victory message
+   * @return {undefined}
+   */
+  sayAboutVictory() {
+    var messages = {
+      "old": "Поздравляю! Вы правильно разгадали загадку и ребусъ!",
+      "rus": "Поздравляю! Вы правильно разгадали загадку и ребус!"
+    };
+    alert(messages[this.current_language]);
+  }
+
+
+  /**
+   * Reads saved info from localStorage
+   */
+  readLocalStorage() {
+    if(typeof localStorage === "undefined") {
+      return;
+    }
+
+    if(typeof localStorage.poetry_riddle__current_language === "undefined") {
+      localStorage.poetry_riddle__current_language = "old"; 
+    }
+      
+    if(typeof localStorage.poetry_riddle__upper__1 === "undefined") {
+      localStorage.poetry_riddle__upper__1 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__2 === "undefined") {
+      localStorage.poetry_riddle__upper__2 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__3 === "undefined") {
+      localStorage.poetry_riddle__upper__3 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__4 === "undefined") {
+      localStorage.poetry_riddle__upper__4 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__5 === "undefined") {
+      localStorage.poetry_riddle__upper__5 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__6 === "undefined") {
+      localStorage.poetry_riddle__upper__6 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__7 === "undefined") {
+      localStorage.poetry_riddle__upper__7 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__8 === "undefined") {
+      localStorage.poetry_riddle__upper__8 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__9 === "undefined") {
+      localStorage.poetry_riddle__upper__9 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__10 === "undefined") {
+      localStorage.poetry_riddle__upper__10 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__11 === "undefined") {
+      localStorage.poetry_riddle__upper__11 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__12 === "undefined") {
+      localStorage.poetry_riddle__upper__12 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__13 === "undefined") {
+      localStorage.poetry_riddle__upper__13 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__14 === "undefined") {
+      localStorage.poetry_riddle__upper__14 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__15 === "undefined") {
+      localStorage.poetry_riddle__upper__15 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__16 === "undefined") {
+      localStorage.poetry_riddle__upper__16 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__17 === "undefined") {
+      localStorage.poetry_riddle__upper__17 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__18 === "undefined") {
+      localStorage.poetry_riddle__upper__18 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__19 === "undefined") {
+      localStorage.poetry_riddle__upper__19 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__20 === "undefined") {
+      localStorage.poetry_riddle__upper__20 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__21 === "undefined") {
+      localStorage.poetry_riddle__upper__21 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__upper__22 === "undefined") {
+      localStorage.poetry_riddle__upper__22 = ""; 
+    }
+    
+    if(typeof localStorage.poetry_riddle__lower__1 === "undefined") {
+      localStorage.poetry_riddle__lower__1 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__2 === "undefined") {
+      localStorage.poetry_riddle__lower__2 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__3 === "undefined") {
+      localStorage.poetry_riddle__lower__3 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__4 === "undefined") {
+      localStorage.poetry_riddle__lower__4 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__5 === "undefined") {
+      localStorage.poetry_riddle__lower__5 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__6 === "undefined") {
+      localStorage.poetry_riddle__lower__6 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__7 === "undefined") {
+      localStorage.poetry_riddle__lower__7 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__8 === "undefined") {
+      localStorage.poetry_riddle__lower__8 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__9 === "undefined") {
+      localStorage.poetry_riddle__lower__9 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__10 === "undefined") {
+      localStorage.poetry_riddle__lower__10 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__11 === "undefined") {
+      localStorage.poetry_riddle__lower__11 = ""; 
+    }
+    if(typeof localStorage.poetry_riddle__lower__12 === "undefined") {
+      localStorage.poetry_riddle__lower__12 = ""; 
+    }
+
+    for(var i=0;i<this.letters.length;i++) {
+      var letter_object = this.letters[i];
+      var letter_to_set = localStorage["poetry_riddle__upper__" + letter_object.id];
+      if(letter_to_set === "") {
+        continue;
+      }
+      letter_to_set = letter_to_set.toLowerCase();
+      if(Letter.russian_letters.indexOf(letter_to_set) == -1) {
+        continue;
+      }
+      this.letters[i].input.value = letter_to_set;
+      this.letters[i].element.classList.add("letter__wrapper--filled");
+    }
+
+    for(var i=0;i<this.hint_inputs.length;i++) {
+      var hint_object = this.hint_inputs[i];
+      var word_to_set = localStorage["poetry_riddle__lower__" + hint_object.id];
+      if(word_to_set === "") {
+        continue;
+      }
+      word_to_set = word_to_set.toLowerCase();
+      if(word_to_set.length > 20) {
+        word_to_set = word_to_set.substr(0, 20);
+      }
+      this.hint_inputs[i].input.value = word_to_set;
+    }
+
+    if(!localStorage.poetry_riddle__current_language.match(/(rus|old)/)) {
+      localStorage.poetry_riddle__current_language = "old";
+    }
+    this.setLanguage(localStorage.poetry_riddle__current_language);
+
+    this.refreshFoundLetters();
   }
 }

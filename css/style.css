@@ -91,6 +91,11 @@ INPUT {
 .how_to__wrapper--how_to .how_to__text {
   display: block;
 }
+.how_to__wrapper--how_to .how_to__switch,
+.how_to__wrapper--about .how_to__about {
+  color: #999;
+  border-bottom-color: #999;
+}
 .how_to__about_text {
   display: none;
 }
@@ -203,19 +208,22 @@ INPUT {
   margin-top: 30px;
   font-size: 0;
   vertical-align: top;
+  position: relative;
+}
+.game__bg_wrapper {
+  position: relative;
+  text-align: center;
+}
+.game__bg {
+  left: 25px;
+  height: 380px;
 }
 .game__border {
-  padding: 20px 20px 20px 17px;
-  margin: auto auto 20px auto;
-  border: 2px solid #999;
-  border-radius: 30px;
-  box-shadow: 10px -10px 0 #999;
-}
-.main_wrapper[data-language="rus"] .game__border {
-  width: 385px;
-}
-.main_wrapper[data-language="old"] .game__border {
-  width: 420px;
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  width: 350px;
+  margin-left: -190px;
 }
 .letter__wrapper {
   position: relative;
@@ -363,6 +371,18 @@ INPUT {
   .found__letters {
     padding: 0 20px 0 20px;
   }
+  .game__bg {
+    height: 300px;
+  }
+  .game__border {
+    top: 80px;
+    width: 280px;
+    margin-left: -150px;
+  }
+  .letter__wrapper {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 
@@ -372,14 +392,19 @@ INPUT {
     height: 22px;
     margin: 0;
   }
-  .game__border {
+  .main_wrapper {
     padding: 10px;
   }
-  .main_wrapper[data-language="old"] .game__border {
-    width: 264px;
+  .game__border {
+    top: 60px;
+    width: 220px;
+    margin-left: -120px;
   }
-  .main_wrapper[data-language="rus"] .game__border {
-    width: 242px;
+  .game__bg {
+    height: 240px;
+  }
+  .game__bg_wrapper {
+    margin: 0 -10px 0 -10px;
   }
 }
 
